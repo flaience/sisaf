@@ -1,0 +1,55 @@
+name: SISAF API CI
+
+on:
+  push:
+    branches:
+      - develop/setup-inicial
+    paths:
+      - 'apps/api/**'
+      - '.github/workflows/api-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: apps/api/package-lock.json
+
+      - name: Install dependencies
+        working-directory: apps/api
+        run: npm ci --no-audit --no-fund
+
+      - name: TypeScript validation
+        working-directory: apps/api
+        run: npm run typecheck
+
+      - name: Build NestJS
+        working-directory: apps/api
+        run: npm run build
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and publish API
+        uses: docker/build-push-action@v6
+        with:
+          context: ./apps/api
+          push: true
+          tags: ghcr.io/flaience/sisaf-api:${{ github.sha }}
