@@ -23,3 +23,15 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# SISAF - Environment variables and secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# SISAF - Certificates and private keys
+*.pem
+*.key
+*.p12
+*.pfx
