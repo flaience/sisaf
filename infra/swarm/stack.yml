@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+  api:
+    image: ${SISAF_API_IMAGE}
+    networks:
+      - internal
+      - traefik-public
+
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+
+    deploy:
+      replicas: 1
+
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+
+      update_config:
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
+
+      resources:
+        limits:
+          memory: 384M
+          cpus: "0.50"
+        reservations:
+          memory: 96M
+
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=traefik-public"
+        - "traefik.http.routers.sisaf-api-staging.rule=Host(`staging.sisaf.flaience.com`)"
+        - "traefik.http.routers.sisaf-api-staging.entrypoints=websecure"
+        - "traefik.http.routers.sisaf-api-staging.tls=true"
+        - "traefik.http.routers.sisaf-api-staging.tls.certresolver=le"
+        - "traefik.http.services.sisaf-api-staging.loadbalancer.server.port=3000"
+
+networks:
+  internal:
+    driver: overlay
+
+  traefik-public:
+    external: true
