@@ -10,6 +10,11 @@ services:
     environment:
       NODE_ENV: production
       PORT: "3000"
+      DATABASE_URL_FILE: /run/secrets/database_url
+
+    secrets:
+      - source: sisaf_neon_staging_v2
+        target: database_url
 
     deploy:
       replicas: 1
@@ -44,4 +49,8 @@ networks:
     driver: overlay
 
   traefik-public:
+    external: true
+
+secrets:
+  sisaf_neon_staging_v2:
     external: true

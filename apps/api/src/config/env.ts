@@ -24,6 +24,8 @@ const envSchema = z.object({
     )
     .optional(),
 
+  DATABASE_URL_FILE: z.string().min(1).optional(),
+
   DB_POOL_MAX: z.coerce.number()
     .int()
     .min(1)
