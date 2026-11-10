@@ -5,13 +5,16 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "node dist/main.js",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:integration": "npm run build && node tests/people.integration.cjs",
+    "test:security": "npm run build && node tests/token-verifier.test.cjs && node tests/jwt-crypto.test.cjs"
   },
   "dependencies": {
     "@nestjs/common": "^11.1.0",
     "@nestjs/core": "^11.1.0",
     "@nestjs/platform-fastify": "^11.1.0",
     "drizzle-orm": "^0.45.4",
+    "jose": "^6.2.17",
     "pg": "^8.23.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2",
