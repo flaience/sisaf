@@ -8,6 +8,20 @@
       "when": 1794235514670,
       "tag": "0000_pale_big_bertha",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794440234419,
+      "tag": "0001_tough_mentor",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794442774305,
+      "tag": "0002_outstanding_dark_beast",
+      "breakpoints": true
     }
   ]
 }

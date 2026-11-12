@@ -6,8 +6,8 @@
     "build": "tsc -p tsconfig.json",
     "start": "node dist/main.js",
     "typecheck": "tsc --noEmit",
-    "test:integration": "npm run build && node tests/people.integration.cjs",
-    "test:security": "npm run build && node tests/token-verifier.test.cjs && node tests/jwt-crypto.test.cjs"
+    "test:integration": "npm run build && node tests/people.integration.cjs && node tests/authorization.integration.cjs && node tests/security-e2e.integration.cjs",
+    "test:security": "npm run build && node tests/token-verifier.test.cjs && node tests/jwt-crypto.test.cjs && node tests/jwks.integration.cjs && node tests/security-context-resolver.test.cjs && node tests/security-guard.test.cjs && node tests/security-http.test.cjs"
   },
   "dependencies": {
     "@nestjs/common": "^11.1.0",

@@ -4,6 +4,7 @@ export type Permission =
   | 'people:read'
   | 'people:create'
   | 'people:update'
+  | 'people:share'
   | 'people:delete';
 
 export interface SecurityContext {

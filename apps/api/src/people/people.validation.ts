@@ -20,6 +20,10 @@ export const addressInputSchema = z.strictObject({
 });
 
 export const createPersonSchema = z.strictObject({
+  unit: z.strictObject({
+    id: z.uuid(),
+    type: z.enum(['headquarters', 'branch']),
+  }),
   type: z.enum(['individual', 'organization']),
   name: z.string().trim().min(1).max(250),
   nickname: optionalText(255),
